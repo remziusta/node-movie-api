@@ -5,8 +5,9 @@ const router = express.Router();
 const Movie = require('../models/Movie');
 
 router.post('/', (req, res, next) => {
-  const { title, category, country, year, imdb_score } = req.body;
+  const { director_id, title, category, country, year, imdb_score } = req.body;
   const movie = new Movie({
+    director_id:director_id,
     title:title,
     category:category,
     country:country,
