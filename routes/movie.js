@@ -22,7 +22,19 @@ router.post('/', (req, res, next) => {
 
 //TÜM DATALAR
 router.get('/', (req, res) => {
-  const promise = Movie.find({ });
+  const promise = Movie.aggregate([
+      {
+        $lookup: {
+          from: 'directors',
+          localField: 'director_id',
+          foreignField: '_id',
+          as: 'director'
+        }
+      },
+      {
+         $unwind: '$director'
+      }
+]);
   promise.then(data => res.json(data))
       .catch(err => res.json(err));
 });
